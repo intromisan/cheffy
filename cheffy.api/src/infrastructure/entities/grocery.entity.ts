@@ -1,9 +1,20 @@
-import { Column, Entity, JoinTable, OneToOne } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Macronutrients } from './macronutrients.entity';
 
 @Entity()
 export class Grocery extends BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column('varchar', { length: 255 })
   name: string;
 
@@ -16,4 +27,10 @@ export class Grocery extends BaseEntity {
   @OneToOne(() => Macronutrients)
   @JoinTable()
   macronutrients: Macronutrients;
+
+  @CreateDateColumn({ name: 'createdAt' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updatedAt' })
+  updatedAt: Date;
 }

@@ -1,18 +1,38 @@
-import { Column, Entity, JoinTable, OneToOne } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity('macronutrients')
 export class Macronutrients extends BaseEntity {
-  @Column('number')
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column('integer')
   calories: number;
-  @Column('decimal', { precision: 6, scale: 4, nullable: true })
+
+  @Column('real')
   carbonhydrates: number;
-  @Column('decimal', { precision: 6, scale: 4, nullable: true })
+
+  @Column('real')
   cholesterol: number;
-  @Column('decimal', { precision: 6, scale: 4, nullable: true })
+
+  @Column('real')
   fats: number;
-  @Column('decimal', { precision: 6, scale: 4, nullable: true })
+
+  @Column('real')
   fiber: number;
-  @Column('decimal', { precision: 6, scale: 4, nullable: true })
+
+  @Column('real')
   proteins: number;
+
+  @CreateDateColumn({ name: 'createdAt' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updatedAt' })
+  updatedAt: Date;
 }

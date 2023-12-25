@@ -1,4 +1,4 @@
-export class GroceryM {
+export class GroceryDto {
   id: string;
   name: string;
   isOfficial: boolean;

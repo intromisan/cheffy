@@ -1,4 +1,4 @@
-export class MacronutrientsM {
+export class MacronutrientsDto {
   id: string;
   calories: number;
   carbonhydrates: number;
@@ -6,4 +6,6 @@ export class MacronutrientsM {
   fats: number;
   fiber: number;
   proteins: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
