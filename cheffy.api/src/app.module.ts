@@ -4,6 +4,7 @@ import { ExceptionsModule } from './infrastructure/exceptions/exceptions.module'
 import { MacronutrientsModule } from './infrastructure/features/macronutrients/macronutrients.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GroceryModule } from './infrastructure/features/grocery/grocery.module';
 import typeorm from './infrastructure/config/typeorm.config';
 
 @Module({
@@ -20,6 +21,7 @@ import typeorm from './infrastructure/config/typeorm.config';
     LoggerModule,
     ExceptionsModule,
     MacronutrientsModule,
+    GroceryModule,
   ],
 })
 export class AppModule {}

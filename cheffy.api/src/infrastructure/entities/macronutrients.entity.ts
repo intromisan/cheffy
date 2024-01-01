@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Grocery } from './grocery.entity';
 
 @Entity('macronutrients')
 export class Macronutrients extends BaseEntity {

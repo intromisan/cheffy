@@ -3,7 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -24,8 +24,8 @@ export class Grocery extends BaseEntity {
   @Column('uuid')
   macronutrientsId: string;
 
-  @OneToOne(() => Macronutrients)
-  @JoinTable()
+  @OneToOne(() => Macronutrients, { eager: true, onDelete: 'CASCADE' })
+  @JoinColumn()
   macronutrients: Macronutrients;
 
   @CreateDateColumn({ name: 'createdAt' })
