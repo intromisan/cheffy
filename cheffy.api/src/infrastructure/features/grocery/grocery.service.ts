@@ -60,13 +60,15 @@ export class GroceryService {
     return await this.findGroceryById(id);
   }
 
-  // TODO: add cascade delete
+  // TODO: fix cascade delete
+  // Cascade delete works the other way around. When deleting grocery
+  // macros stay in db. But when deleting macros, grocery delete as well.
   async deleteGrocery(id: string): Promise<void> {
     const grocery = await this.groceryRepository.findGroceryById(id);
-    await this.macronutrientsRepository.deleteMacronutrients(
-      grocery.macronutrients.id,
+    return await this.macronutrientsRepository.deleteMacronutrients(
+      grocery.macronutrientsId,
     );
-    return await this.groceryRepository.deleteGrocery(id);
+    // return await this.groceryRepository.deleteGrocery(id);
   }
 
   private toGroceryDto(grocery: Grocery): GroceryDto {

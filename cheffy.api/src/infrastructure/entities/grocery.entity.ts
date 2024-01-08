@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Macronutrients } from './macronutrients.entity';
 
-@Entity()
+@Entity('grocery')
 export class Grocery extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -24,7 +24,7 @@ export class Grocery extends BaseEntity {
   @Column('uuid')
   macronutrientsId: string;
 
-  @OneToOne(() => Macronutrients, { eager: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Macronutrients, { onDelete: 'CASCADE' })
   @JoinColumn()
   macronutrients: Macronutrients;
 
