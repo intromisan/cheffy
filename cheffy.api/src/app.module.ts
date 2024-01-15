@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GroceryModule } from './infrastructure/features/grocery/grocery.module';
 import { CategoryModule } from './infrastructure/features/category/category.module';
+import { ProfileModule } from './infrastructure/features/profile/profile.module';
 import typeorm from './infrastructure/config/typeorm.config';
 
 @Module({
@@ -24,6 +25,7 @@ import typeorm from './infrastructure/config/typeorm.config';
     MacronutrientsModule,
     GroceryModule,
     CategoryModule,
+    ProfileModule,
   ],
 })
 export class AppModule {}
