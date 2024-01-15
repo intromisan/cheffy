@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Profile } from './profile.entity';
 
-@Entity()
+@Entity('fridge')
 export class Fridge extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

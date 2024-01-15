@@ -17,15 +17,15 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: false,
   schema: process.env.DATABASE_SCHEMA,
-  migrationsRun: true,
+  // migrationsRun: true,
   migrationsTableName: 'migrations',
-  migrations: ['dist/migrations/*{.ts,.js}'],
+  migrations: [__dirname + '/../../migrations/*{.ts,.js}'],
   // ssl: {
   //   rejectUnauthorized: false,
   // },
 };
 
-console.log(typeOrmConfig);
+console.log(__dirname);
 
 export default registerAs('typeorm', () => typeOrmConfig);
 export const connectionSource = new DataSource(

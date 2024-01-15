@@ -2,6 +2,8 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -9,6 +11,7 @@ import {
 import { Profile } from './profile.entity';
 import { Step } from './step.entity';
 import { Ingredient } from './ingredient.entity';
+import { Category } from './category.entity';
 
 @Entity('recipe')
 export class Recipe extends BaseEntity {
@@ -26,6 +29,10 @@ export class Recipe extends BaseEntity {
 
   @ManyToOne(() => Profile)
   author: Profile;
+
+  @ManyToMany(() => Category)
+  @JoinTable()
+  categories: Category[];
 
   @OneToMany(() => Ingredient, (ingredient) => ingredient.recipe)
   ingredients: Ingredient[];
