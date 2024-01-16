@@ -10,8 +10,8 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
-import { ProfileDto } from 'src/domain/dtos/profiles/profile.dto';
-import { CreateUpdateProfileDto } from 'src/domain/dtos/profiles/createUpdateProfile.dto';
+import { ProfileDto } from 'src/domain/dtos/profile/profile.dto';
+import { CreateUpdateProfileDto } from 'src/domain/dtos/profile/createUpdateProfile.dto';
 
 @Controller('profiles')
 export class ProfileController {

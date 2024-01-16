@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Grocery } from '../entities/grocery.entity';
-import { CreateGroceryDto } from 'src/domain/dtos/groceries/createGrocery.dto';
-import { GroceryFilterDto } from 'src/domain/dtos/groceries/groceryFilter.dto';
-import { UpdateGroceryDto } from 'src/domain/dtos/groceries/updateGrocery.dto';
+import { CreateGroceryDto } from 'src/domain/dtos/grocery/createGrocery.dto';
+import { GroceryFilterDto } from 'src/domain/dtos/grocery/groceryFilter.dto';
+import { UpdateGroceryDto } from 'src/domain/dtos/grocery/updateGrocery.dto';
 
 @Injectable()
 export class GroceryRepository extends Repository<Grocery> {

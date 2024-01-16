@@ -1,7 +1,7 @@
 import { DataSource, Repository } from 'typeorm';
 import { Profile } from '../entities/profile.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUpdateProfileDto } from 'src/domain/dtos/profiles/createUpdateProfile.dto';
+import { CreateUpdateProfileDto } from 'src/domain/dtos/profile/createUpdateProfile.dto';
 
 @Injectable()
 export class ProfileRepository extends Repository<Profile> {

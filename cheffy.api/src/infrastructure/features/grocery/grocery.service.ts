@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateGroceryDto } from 'src/domain/dtos/groceries/createGrocery.dto';
-import { GroceryDto } from 'src/domain/dtos/groceries/grocery.dto';
-import { GroceryFilterDto } from 'src/domain/dtos/groceries/groceryFilter.dto';
-import { UpdateGroceryDto } from 'src/domain/dtos/groceries/updateGrocery.dto';
+import { CreateGroceryDto } from 'src/domain/dtos/grocery/createGrocery.dto';
+import { GroceryDto } from 'src/domain/dtos/grocery/grocery.dto';
+import { GroceryFilterDto } from 'src/domain/dtos/grocery/groceryFilter.dto';
+import { UpdateGroceryDto } from 'src/domain/dtos/grocery/updateGrocery.dto';
 import { Grocery } from 'src/infrastructure/entities/grocery.entity';
 import { GroceryRepository } from 'src/infrastructure/repositories/grocery.repository';
 import { MacronutrientsRepository } from 'src/infrastructure/repositories/macronutrients.repository';

@@ -10,8 +10,8 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { CategoryDto } from 'src/domain/dtos/categories/category.dto';
-import { CreateUpdateCategoryDto } from 'src/domain/dtos/categories/createUpdateCategory.dto';
+import { CategoryDto } from 'src/domain/dtos/category/category.dto';
+import { CreateUpdateCategoryDto } from 'src/domain/dtos/category/createUpdateCategory.dto';
 
 @Controller('categories')
 export class CategoryController {

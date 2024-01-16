@@ -11,10 +11,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { GroceryService } from './grocery.service';
-import { GroceryDto } from 'src/domain/dtos/groceries/grocery.dto';
-import { CreateGroceryDto } from 'src/domain/dtos/groceries/createGrocery.dto';
-import { GroceryFilterDto } from 'src/domain/dtos/groceries/groceryFilter.dto';
-import { UpdateGroceryDto } from 'src/domain/dtos/groceries/updateGrocery.dto';
+import { GroceryDto } from 'src/domain/dtos/grocery/grocery.dto';
+import { CreateGroceryDto } from 'src/domain/dtos/grocery/createGrocery.dto';
+import { GroceryFilterDto } from 'src/domain/dtos/grocery/groceryFilter.dto';
+import { UpdateGroceryDto } from 'src/domain/dtos/grocery/updateGrocery.dto';
 
 @Controller('groceries')
 export class GroceryController {
