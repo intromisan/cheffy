@@ -13,16 +13,16 @@ import { CategoryService } from './category.service';
 import { CategoryDto } from 'src/domain/dtos/category/category.dto';
 import { CreateUpdateCategoryDto } from 'src/domain/dtos/category/createUpdateCategory.dto';
 
-@Controller('/api/v1/categories')
+@Controller('/api/v1')
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
-  @Get()
+  @Get('categories')
   findCategories(): Promise<CategoryDto[]> {
     return this.categoryService.findAllCategories();
   }
 
-  @Post()
+  @Post('categories')
   @UsePipes(ValidationPipe)
   createCategory(
     @Body() createUpdateCategoryDto: CreateUpdateCategoryDto,
@@ -30,7 +30,7 @@ export class CategoryController {
     return this.categoryService.createCategory(createUpdateCategoryDto);
   }
 
-  @Put('/:id')
+  @Put('categories/:id')
   @UsePipes(ValidationPipe)
   updateCategory(
     @Param('id') id: string,
@@ -39,7 +39,7 @@ export class CategoryController {
     return this.categoryService.updateCategory(id, createUpdateCategoryDto);
   }
 
-  @Delete('/:id')
+  @Delete('categories/:id')
   deleteCategory(@Param('id') id: string): Promise<void> {
     return this.categoryService.deleteCategory(id);
   }

@@ -14,16 +14,16 @@ import { CreateUpdateMacronutrientsDto } from 'src/domain/dtos/macronutrients/cr
 import { MacronutrientsService } from './macronutrients.service';
 import { MacronutrientsDto } from 'src/domain/dtos/macronutrients/macronutrients.dto';
 
-@Controller('/api/v1/macronutrients')
+@Controller('/api/v1')
 export class MacronutrientsController {
   constructor(private macronutrientsService: MacronutrientsService) {}
 
-  @Get('/:id')
+  @Get('macronutrients/:id')
   findMacronutrientsById(@Param('id') id: string): Promise<MacronutrientsDto> {
     return this.macronutrientsService.findById(id);
   }
 
-  @Post()
+  @Post('macronutrients')
   @UsePipes(ValidationPipe)
   createMacronutrients(
     @Body() createMacronutrientsDto: CreateUpdateMacronutrientsDto,
@@ -33,7 +33,7 @@ export class MacronutrientsController {
     );
   }
 
-  @Put('/:id')
+  @Put('macronutrients/:id')
   @UsePipes(ValidationPipe)
   updateMacronutrients(
     @Param('id') id: string,
@@ -45,7 +45,7 @@ export class MacronutrientsController {
     );
   }
 
-  @Delete('/:id')
+  @Delete('macronutrients/:id')
   @HttpCode(204)
   deleteMacronutrients(@Param('id') id: string): void {
     this.macronutrientsService.deleteMacronutrients(id);

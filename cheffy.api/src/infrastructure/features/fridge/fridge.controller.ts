@@ -13,16 +13,16 @@ import { FridgeService } from './fridge.service';
 import { FridgeDto } from 'src/domain/dtos/fridge/fridge.dto';
 import { CreateUpdateFridgeDto } from 'src/domain/dtos/fridge/createUpdateFridge.dto';
 
-@Controller('/api/v1/fridges')
+@Controller('/api/v1')
 export class FridgeController {
   constructor(private fridgeService: FridgeService) {}
 
-  @Get('/:id')
+  @Get('fridges/:id')
   fingFridgeById(@Param('id') id: string): Promise<FridgeDto> {
     return this.fridgeService.getFridgeById(id);
   }
 
-  @Post()
+  @Post('fridges')
   @UsePipes(ValidationPipe)
   createFridge(
     @Body() createUpdateFridgeDto: CreateUpdateFridgeDto,
@@ -30,7 +30,7 @@ export class FridgeController {
     return this, this.fridgeService.createFridge(createUpdateFridgeDto);
   }
 
-  @Put('/:id')
+  @Put('fridges/:id')
   @UsePipes(ValidationPipe)
   updateFridge(
     @Param('id') id: string,
@@ -39,7 +39,7 @@ export class FridgeController {
     return this.fridgeService.updateFridge(id, createUpdateFridgeDto);
   }
 
-  @Delete('/:id')
+  @Delete('fridges/:id')
   deleteFridge(@Param('id') id: string): Promise<void> {
     return this.fridgeService.deleteFridge(id);
   }

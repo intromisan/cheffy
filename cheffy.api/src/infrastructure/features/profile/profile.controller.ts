@@ -13,21 +13,21 @@ import { ProfileService } from './profile.service';
 import { ProfileDto } from 'src/domain/dtos/profile/profile.dto';
 import { CreateUpdateProfileDto } from 'src/domain/dtos/profile/createUpdateProfile.dto';
 
-@Controller('/api/v1/profiles')
+@Controller('/api/v1')
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
 
-  @Get()
+  @Get('profiles')
   findAllProfiles(): Promise<ProfileDto[]> {
     return this.profileService.findAllProfiles();
   }
 
-  @Get('/:id')
+  @Get('profiles/:id')
   findProfileById(@Param('id') id: string): Promise<ProfileDto> {
     return this.profileService.findProfileById(id);
   }
 
-  @Post()
+  @Post('profiles')
   @UsePipes(ValidationPipe)
   createProfile(
     @Body() createUpdateProfileDto: CreateUpdateProfileDto,
@@ -35,7 +35,7 @@ export class ProfileController {
     return this.profileService.createProfile(createUpdateProfileDto);
   }
 
-  @Put('/:id')
+  @Put('profiles/:id')
   @UsePipes(ValidationPipe)
   updateProfile(
     @Param('id') id: string,
@@ -44,7 +44,7 @@ export class ProfileController {
     return this.profileService.updateProfile(id, createUpdateProfileDto);
   }
 
-  @Delete('/:id')
+  @Delete('profiles/:id')
   deleteProfile(@Param('id') id: string): Promise<void> {
     return this.profileService.deleteProfile(id);
   }
