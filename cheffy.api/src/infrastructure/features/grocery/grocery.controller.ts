@@ -16,7 +16,7 @@ import { CreateGroceryDto } from 'src/domain/dtos/grocery/createGrocery.dto';
 import { GroceryFilterDto } from 'src/domain/dtos/grocery/groceryFilter.dto';
 import { UpdateGroceryDto } from 'src/domain/dtos/grocery/updateGrocery.dto';
 
-@Controller('groceries')
+@Controller('/api/v1/groceries')
 export class GroceryController {
   constructor(private groceryService: GroceryService) {}
 

@@ -13,7 +13,7 @@ import { FridgeService } from './fridge.service';
 import { FridgeDto } from 'src/domain/dtos/fridge/fridge.dto';
 import { CreateUpdateFridgeDto } from 'src/domain/dtos/fridge/createUpdateFridge.dto';
 
-@Controller('fridges')
+@Controller('/api/v1/fridges')
 export class FridgeController {
   constructor(private fridgeService: FridgeService) {}
 

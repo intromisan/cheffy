@@ -14,7 +14,7 @@ import { CreateUpdateMacronutrientsDto } from 'src/domain/dtos/macronutrients/cr
 import { MacronutrientsService } from './macronutrients.service';
 import { MacronutrientsDto } from 'src/domain/dtos/macronutrients/macronutrients.dto';
 
-@Controller('macronutrients')
+@Controller('/api/v1/macronutrients')
 export class MacronutrientsController {
   constructor(private macronutrientsService: MacronutrientsService) {}
 

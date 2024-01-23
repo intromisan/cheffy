@@ -13,7 +13,7 @@ import { ProfileService } from './profile.service';
 import { ProfileDto } from 'src/domain/dtos/profile/profile.dto';
 import { CreateUpdateProfileDto } from 'src/domain/dtos/profile/createUpdateProfile.dto';
 
-@Controller('profiles')
+@Controller('/api/v1/profiles')
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
 

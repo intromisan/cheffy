@@ -13,7 +13,7 @@ import { CategoryService } from './category.service';
 import { CategoryDto } from 'src/domain/dtos/category/category.dto';
 import { CreateUpdateCategoryDto } from 'src/domain/dtos/category/createUpdateCategory.dto';
 
-@Controller('categories')
+@Controller('/api/v1/categories')
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
