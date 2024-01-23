@@ -10,16 +10,15 @@ export class FirebaseService {
     private readonly logger: LoggerService,
   ) {}
 
-  public async authenticate(authToken): Promise<any> {
+  public async authenticate(authToken: string): Promise<any> {
     const tokenString = this.getToken(authToken);
     try {
       const decodedToken: admin.auth.DecodedIdToken = await this.firebaseApp
         .auth()
         .verifyIdToken(tokenString);
-      this.logger.log('', `${JSON.stringify(decodedToken)}`);
-      console.log(decodedToken);
-      const { email, uid, role } = decodedToken;
-      return { email, uid, role };
+      // const { email, uid, role } = decodedToken;
+      const { email, uid } = decodedToken;
+      return { email, uid };
     } catch (err) {
       this.logger.error('', `error while authenticate request ${err.message}`);
       throw new UnauthorizedException(err.message);

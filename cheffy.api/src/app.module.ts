@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { LoggerModule } from './infrastructure/logger/logger.module';
 import { ExceptionsModule } from './infrastructure/exceptions/exceptions.module';
 import { MacronutrientsModule } from './infrastructure/features/macronutrients/macronutrients.module';
@@ -10,6 +15,8 @@ import { ProfileModule } from './infrastructure/features/profile/profile.module'
 import { FridgeModule } from './infrastructure/features/fridge/fridge.module';
 import { FirebaseModule } from './infrastructure/auth/firebase/firebase.module';
 import typeorm from './infrastructure/config/typeorm.config';
+import { AuthModule } from './infrastructure/auth/auth.module';
+import { AuthMiddleware } from './infrastructure/auth/middlewares/auth.middleware';
 
 @Module({
   imports: [
@@ -22,6 +29,7 @@ import typeorm from './infrastructure/config/typeorm.config';
       useFactory: async (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
+    AuthModule,
     LoggerModule,
     ExceptionsModule,
     MacronutrientsModule,
@@ -32,4 +40,10 @@ import typeorm from './infrastructure/config/typeorm.config';
     FirebaseModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  public configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}
