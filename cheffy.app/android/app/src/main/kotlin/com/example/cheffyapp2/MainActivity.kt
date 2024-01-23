@@ -1,4 +1,4 @@
-package com.example.cheffyapp2
+package com.example.cheffy
 
 import io.flutter.embedding.android.FlutterActivity
 

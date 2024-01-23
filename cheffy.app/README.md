@@ -1,4 +1,4 @@
-# cheffyapp2
+# cheffy
 
 A new Flutter project.
 
