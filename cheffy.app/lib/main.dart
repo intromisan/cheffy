@@ -1,5 +1,5 @@
 import 'package:cheffy/features/auth/presentation/auth.dart';
-import 'package:cheffy/firebase_options.dart';
+import 'package:cheffy/config/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
