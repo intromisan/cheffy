@@ -1,4 +1,5 @@
 import 'package:cheffy/common/components/auth_button.dart';
+import 'package:cheffy/common/mixins/firebase_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with FirebaseUserMixin {
   String token = "";
 
   void logout() async {
@@ -19,7 +20,8 @@ class _HomePageState extends State<HomePage> {
 
   _httpCall() async {
     final user = FirebaseAuth.instance.currentUser;
-    final idToken = await user!.getIdToken();
+
+    final idToken = await getIdToken(user);
     setState(() {
       if (idToken == null) {
         token = "not found";

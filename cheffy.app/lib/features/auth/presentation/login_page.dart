@@ -1,5 +1,6 @@
 import 'package:cheffy/common/components/auth_button.dart';
 import 'package:cheffy/common/components/text_field.dart';
+import 'package:cheffy/common/mixins/firebase_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with FirebaseUserMixin {
   // Text editing controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -28,6 +29,11 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
+
+      final firebaseUser = FirebaseAuth.instance.currentUser;
+
+      // Save user data locally
+      saveUserData(firebaseUser);
 
       // Pop loading circle if successful
       if (context.mounted) Navigator.pop(context);
