@@ -29,7 +29,7 @@ mixin FirebaseUserMixin {
     final idToken = prefs.getString("idToken");
     DateTime expireTime = await getTokenExpireTime();
 
-    if (expireTime.isBefore(DateTime.now())) {
+    if (expireTime.isAfter(DateTime.now())) {
       // Token is expired, refresh it
       return user?.getIdToken();
     } else {
