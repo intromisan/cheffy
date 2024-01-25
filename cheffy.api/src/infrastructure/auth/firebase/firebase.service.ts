@@ -1,6 +1,7 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { app } from 'firebase-admin';
 import * as admin from 'firebase-admin';
+import { FirebaseUserDto } from 'src/domain/dtos/auth/firebaseUser.dto';
 import { LoggerService } from 'src/infrastructure/logger/logger.service';
 
 @Injectable()
@@ -10,7 +11,7 @@ export class FirebaseService {
     private readonly logger: LoggerService,
   ) {}
 
-  public async authenticate(authToken: string): Promise<any> {
+  public async authenticate(authToken: string): Promise<FirebaseUserDto> {
     const tokenString = this.getToken(authToken);
     try {
       const decodedToken: admin.auth.DecodedIdToken = await this.firebaseApp

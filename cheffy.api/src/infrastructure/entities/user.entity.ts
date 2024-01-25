@@ -1,5 +1,6 @@
 import {
   BaseEntity,
+  Column,
   Entity,
   JoinColumn,
   OneToOne,
@@ -11,6 +12,9 @@ import { Profile } from './profile.entity';
 export class User extends BaseEntity {
   @PrimaryColumn()
   id: string;
+
+  @Column()
+  email: string;
 
   @OneToOne(() => Profile)
   @JoinColumn()
