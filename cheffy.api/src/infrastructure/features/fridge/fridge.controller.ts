@@ -6,16 +6,22 @@ import {
   Param,
   Post,
   Put,
+  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { FridgeService } from './fridge.service';
 import { FridgeDto } from 'src/domain/dtos/fridge/fridge.dto';
 import { CreateUpdateFridgeDto } from 'src/domain/dtos/fridge/createUpdateFridge.dto';
+import { RequestModel } from 'src/infrastructure/auth/middlewares/auth.middleware';
+import { ProfileService } from '../profile/profile.service';
 
 @Controller('/api/v1')
 export class FridgeController {
-  constructor(private fridgeService: FridgeService) {}
+  constructor(
+    private fridgeService: FridgeService,
+    private readonly profileService: ProfileService,
+  ) {}
 
   @Get('fridges/:id')
   fingFridgeById(@Param('id') id: string): Promise<FridgeDto> {
@@ -24,10 +30,16 @@ export class FridgeController {
 
   @Post('fridges')
   @UsePipes(ValidationPipe)
-  createFridge(
+  async createFridge(
+    @Req() req: RequestModel,
     @Body() createUpdateFridgeDto: CreateUpdateFridgeDto,
   ): Promise<FridgeDto> {
-    return this, this.fridgeService.createFridge(createUpdateFridgeDto);
+    const { profile } = req;
+
+    const fridge = await this.fridgeService.createFridge(createUpdateFridgeDto);
+    this.profileService.addFridgeToProfile(profile.id, fridge);
+
+    return fridge;
   }
 
   @Put('fridges/:id')

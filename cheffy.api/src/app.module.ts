@@ -50,8 +50,8 @@ export class AppModule implements NestModule {
     consumer
       .apply(ProfileMiddleware)
       .forRoutes(
-        { path: 'recipe', method: RequestMethod.PUT },
-        { path: 'recipe', method: RequestMethod.POST },
+        { path: '*/fridges', method: RequestMethod.PUT },
+        { path: '*/fridges', method: RequestMethod.POST },
       );
   }
 }

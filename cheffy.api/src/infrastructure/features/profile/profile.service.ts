@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FridgeDto } from 'src/domain/dtos/fridge/fridge.dto';
 import { CreateUpdateProfileDto } from 'src/domain/dtos/profile/createUpdateProfile.dto';
 import { ProfileDto } from 'src/domain/dtos/profile/profile.dto';
 import { Profile } from 'src/infrastructure/entities/profile.entity';
@@ -55,6 +56,16 @@ export class ProfileService {
     const profile = await this.profileRepository.findProfileById(id);
 
     return this.toProfileDto(profile);
+  }
+
+  async addFridgeToProfile(id: string, fridge: FridgeDto): Promise<void> {
+    const profile = await this.profileRepository.findProfileById(id);
+
+    if (!profile) {
+      throw new NotFoundException(`Profile with id = ${id} not found`);
+    }
+
+    await this.profileRepository.update({ id }, { fridge });
   }
 
   async deleteProfile(id: string): Promise<void> {

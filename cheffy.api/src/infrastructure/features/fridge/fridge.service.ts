@@ -70,7 +70,7 @@ export class FridgeService {
   private toFridgeDto(fridge: Fridge): FridgeDto {
     const fridgeDto = new FridgeDto();
     let fridgeOwners: FridgeOwner[] = [];
-    for (let i = 0; i > fridge.owners.length; i++) {
+    for (let i = 0; i < fridge.owners.length; i++) {
       const owner = new FridgeOwner();
       owner.id = fridge.owners[i].id;
       owner.profileName = fridge.owners[i].profileName;
