@@ -2,6 +2,7 @@ import { DataSource, Repository } from 'typeorm';
 import { Profile } from '../entities/profile.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUpdateProfileDto } from 'src/domain/dtos/profile/createUpdateProfile.dto';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class ProfileRepository extends Repository<Profile> {
@@ -21,8 +22,9 @@ export class ProfileRepository extends Repository<Profile> {
 
   async createProfile(
     createUpdateProfileDto: CreateUpdateProfileDto,
+    user: User,
   ): Promise<Profile> {
-    const profileEntity = this.toProfileEntity(createUpdateProfileDto);
+    const profileEntity = this.toProfileEntity(createUpdateProfileDto, user);
 
     await profileEntity.save();
 
@@ -46,10 +48,12 @@ export class ProfileRepository extends Repository<Profile> {
 
   private toProfileEntity(
     createUpdateProfileDto: CreateUpdateProfileDto,
+    user: User,
   ): Profile {
     const profile = new Profile();
 
     profile.profileName = createUpdateProfileDto.profileName;
+    profile.user = user;
 
     return profile;
   }

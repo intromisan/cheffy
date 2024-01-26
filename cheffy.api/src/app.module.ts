@@ -17,6 +17,7 @@ import { FirebaseModule } from './infrastructure/auth/firebase/firebase.module';
 import typeorm from './infrastructure/config/typeorm.config';
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { AuthMiddleware } from './infrastructure/auth/middlewares/auth.middleware';
+import { ProfileMiddleware } from './infrastructure/auth/middlewares/profile.middleware';
 
 @Module({
   imports: [
@@ -45,5 +46,12 @@ export class AppModule implements NestModule {
     consumer
       .apply(AuthMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
+
+    consumer
+      .apply(ProfileMiddleware)
+      .forRoutes(
+        { path: 'recipe', method: RequestMethod.PUT },
+        { path: 'recipe', method: RequestMethod.POST },
+      );
   }
 }

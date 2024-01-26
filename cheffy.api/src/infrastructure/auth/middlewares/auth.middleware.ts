@@ -9,9 +9,11 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { NextFunction, Request, Response } from 'express';
 import { FirebaseService } from '../firebase/firebase.service';
 import { FirebaseUserDto } from 'src/domain/dtos/auth/firebaseUser.dto';
+import { ProfileDto } from 'src/domain/dtos/profile/profile.dto';
 
 export interface RequestModel extends Request {
   user: FirebaseUserDto;
+  profile: ProfileDto;
 }
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {

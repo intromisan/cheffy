@@ -27,14 +27,6 @@ export class ProfileController {
     return this.profileService.findProfileById(id);
   }
 
-  @Post('profiles')
-  @UsePipes(ValidationPipe)
-  createProfile(
-    @Body() createUpdateProfileDto: CreateUpdateProfileDto,
-  ): Promise<ProfileDto> {
-    return this.profileService.createProfile(createUpdateProfileDto);
-  }
-
   @Put('profiles/:id')
   @UsePipes(ValidationPipe)
   updateProfile(

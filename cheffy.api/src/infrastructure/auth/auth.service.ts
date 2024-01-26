@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from '../repositories/user.repository';
 import { ProfileRepository } from '../repositories/profile.repository';
@@ -30,17 +34,33 @@ export class AuthService {
     return this.toUserDto(userEntity);
   }
 
+  async signIn(userId: string): Promise<ProfileDto> {
+    const profileEntity = await this.profileRepository.findOne({
+      where: { id: userId },
+    });
+
+    if (!profileEntity) {
+      throw new InternalServerErrorException(
+        `No profile for user: ${userId} was found`,
+      );
+    }
+
+    const profileDto = new ProfileDto();
+    profileDto.id = profileEntity.id;
+    profileDto.profileName = profileEntity.profileName;
+
+    return profileDto;
+  }
+
   async signUp(
     createUserDto: CreateUserDto,
     createUpdateProfileDto: CreateUpdateProfileDto,
   ): Promise<UserDto> {
-    const profileEntity = await this.profileRepository.createProfile(
-      createUpdateProfileDto,
-    );
+    const userEntity = await this.userRepository.createUser(createUserDto);
 
-    const userEntity = await this.userRepository.createUser(
-      createUserDto,
-      profileEntity,
+    await this.profileRepository.createProfile(
+      createUpdateProfileDto,
+      userEntity,
     );
 
     return this.toUserDto(userEntity);
