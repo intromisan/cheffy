@@ -19,7 +19,7 @@ export class StepService {
     @InjectRepository(StepRepository)
     @InjectRepository(RecipeRepository)
     private readonly stepRepository: StepRepository,
-    private readonly recipeService: RecipeService,
+    private readonly recipeRepository: RecipeRepository,
   ) {}
 
   async getStepById(id: string): Promise<StepDto> {
@@ -29,16 +29,23 @@ export class StepService {
   }
 
   async createStep(createStepDto: CreateStepDto): Promise<StepDto> {
-    const recipe = await this.recipeService.findRecipeById(
+    const recipe = await this.recipeRepository.findRecipeById(
       createStepDto.recipeId,
     );
 
-    const numberIsUnique = await this.isStepNumberUnique(
+    if (!recipe) {
+      throw new NotFoundException(
+        `Recipe with id = ${createStepDto.recipeId} not found`,
+      );
+    }
+
+    // Check if there is a step with the same number
+    const stepNumberExists = await this.stepRepository.stepNumberExists(
       createStepDto.number,
       createStepDto.recipeId,
     );
 
-    if (!numberIsUnique) {
+    if (stepNumberExists) {
       throw new BadRequestException(
         `Step with step number: ${createStepDto.number} already exsists`,
       );
@@ -74,19 +81,6 @@ export class StepService {
     }
 
     return step;
-  }
-
-  private async isStepNumberUnique(
-    stepNumber: number,
-    recipeId: string,
-  ): Promise<boolean> {
-    const count = await this.stepRepository
-      .createQueryBuilder('step')
-      .where('step.recipeId = :recipeId', { recipeId })
-      .andWhere('step.number = :stepNumber', { stepNumber })
-      .getCount();
-
-    return count < 1;
   }
 
   private toStepDto(step: Step): StepDto {

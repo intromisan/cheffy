@@ -20,6 +20,7 @@ import { AuthMiddleware } from './infrastructure/auth/middlewares/auth.middlewar
 import { ProfileMiddleware } from './infrastructure/auth/middlewares/profile.middleware';
 import { RecipeModule } from './infrastructure/features/recipe/recipe.module';
 import { StepModule } from './infrastructure/features/step/step.module';
+import { IngredientModule } from './infrastructure/features/ingredient/ingredient.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { StepModule } from './infrastructure/features/step/step.module';
     FirebaseModule,
     RecipeModule,
     StepModule,
+    IngredientModule,
   ],
 })
 export class AppModule implements NestModule {

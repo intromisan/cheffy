@@ -5,9 +5,8 @@ import { RecipeDto } from 'src/domain/dtos/recipe/recipe.dto';
 import { UpdateRecipeDto } from 'src/domain/dtos/recipe/updateRecipe.dto';
 import { Recipe } from 'src/infrastructure/entities/recipe.entity';
 import { RecipeRepository } from 'src/infrastructure/repositories/recipe.repository';
-import { StepService } from '../step/step.service';
 import { Step } from 'src/infrastructure/entities/step.entity';
-import { StepDto, StepListItem } from 'src/domain/dtos/step/step.dto';
+import { StepDto } from 'src/domain/dtos/step/step.dto';
 
 @Injectable()
 export class RecipeService {
@@ -27,7 +26,7 @@ export class RecipeService {
   }
 
   async getRecipeById(id: string): Promise<RecipeDto> {
-    const recipe = await this.findRecipeById(id);
+    const recipe = await this.recipeRepository.findRecipeById(id);
 
     return this.toRecipeDto(recipe);
   }
@@ -44,7 +43,7 @@ export class RecipeService {
     id: string,
     updateRecipeDto: UpdateRecipeDto,
   ): Promise<RecipeDto> {
-    await this.findRecipeById(id);
+    await this.recipeRepository.findRecipeById(id);
 
     await this.recipeRepository.update({ id }, { ...updateRecipeDto });
 
@@ -52,22 +51,9 @@ export class RecipeService {
   }
 
   async deleteRecipe(id: string): Promise<void> {
-    const recipe = await this.findRecipeById(id);
+    const recipe = await this.recipeRepository.findRecipeById(id);
 
     await this.recipeRepository.remove(recipe);
-  }
-
-  async findRecipeById(id: string): Promise<Recipe> {
-    const recipeEntity = await this.recipeRepository.findOne({
-      where: { id },
-      relations: { steps: true },
-    });
-
-    if (!recipeEntity) {
-      throw new NotFoundException(`Recipe with id = ${id} not found`);
-    }
-
-    return recipeEntity;
   }
 
   private toRecipeEntity(createRecipeDto: CreateRecipeDto): Recipe {
