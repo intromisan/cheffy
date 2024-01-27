@@ -19,12 +19,12 @@ import { ProfileService } from '../profile/profile.service';
 @Controller('/api/v1')
 export class FridgeController {
   constructor(
-    private fridgeService: FridgeService,
+    private readonly fridgeService: FridgeService,
     private readonly profileService: ProfileService,
   ) {}
 
   @Get('fridges/:id')
-  fingFridgeById(@Param('id') id: string): Promise<FridgeDto> {
+  findFridgeById(@Param('id') id: string): Promise<FridgeDto> {
     return this.fridgeService.getFridgeById(id);
   }
 

@@ -18,6 +18,7 @@ import typeorm from './infrastructure/config/typeorm.config';
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { AuthMiddleware } from './infrastructure/auth/middlewares/auth.middleware';
 import { ProfileMiddleware } from './infrastructure/auth/middlewares/profile.middleware';
+import { RecipeModule } from './infrastructure/features/recipe/recipe.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { ProfileMiddleware } from './infrastructure/auth/middlewares/profile.mid
     ProfileModule,
     FridgeModule,
     FirebaseModule,
+    RecipeModule,
   ],
 })
 export class AppModule implements NestModule {
