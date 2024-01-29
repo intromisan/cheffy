@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -13,6 +14,7 @@ import { RecipeService } from './recipe.service';
 import { RecipeDto } from 'src/domain/dtos/recipe/recipe.dto';
 import { CreateRecipeDto } from 'src/domain/dtos/recipe/createRecipe.dto';
 import { UpdateRecipeDto } from 'src/domain/dtos/recipe/updateRecipe.dto';
+import { RequestModel } from 'src/infrastructure/auth/middlewares/auth.middleware';
 
 @Controller('/api/v1')
 export class RecipeController {
@@ -30,8 +32,12 @@ export class RecipeController {
 
   @Post('recipes')
   @UsePipes(ValidationPipe)
-  createRecipe(@Body() createRecipeDto: CreateRecipeDto): Promise<RecipeDto> {
-    return this.recipeService.createRecipe(createRecipeDto);
+  createRecipe(
+    @Req() request: RequestModel,
+    @Body() createRecipeDto: CreateRecipeDto,
+  ): Promise<RecipeDto> {
+    const { profile } = request;
+    return this.recipeService.createRecipe(createRecipeDto, profile.id);
   }
 
   @Put('recipes/:id')

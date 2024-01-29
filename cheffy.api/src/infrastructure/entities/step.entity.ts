@@ -18,6 +18,8 @@ export class Step extends BaseEntity {
   @Column('varchar')
   description: string;
 
-  @ManyToOne(() => Recipe, (recipe) => recipe.steps)
+  @ManyToOne(() => Recipe, (recipe) => recipe.steps, {
+    onDelete: 'CASCADE',
+  })
   recipe: Recipe;
 }

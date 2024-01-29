@@ -7,12 +7,16 @@ import { Recipe } from 'src/infrastructure/entities/recipe.entity';
 import { RecipeRepository } from 'src/infrastructure/repositories/recipe.repository';
 import { Step } from 'src/infrastructure/entities/step.entity';
 import { StepDto } from 'src/domain/dtos/step/step.dto';
+import { Profile } from 'src/infrastructure/entities/profile.entity';
+import { ProfileRepository } from 'src/infrastructure/repositories/profile.repository';
 
 @Injectable()
 export class RecipeService {
   constructor(
     @InjectRepository(RecipeRepository)
+    @InjectRepository(ProfileRepository)
     private readonly recipeRepository: RecipeRepository,
+    private readonly profileRepository: ProfileRepository,
   ) {}
 
   async getAllRecipes(): Promise<RecipeDto[]> {
@@ -31,8 +35,19 @@ export class RecipeService {
     return this.toRecipeDto(recipe);
   }
 
-  async createRecipe(createRecipeDto: CreateRecipeDto): Promise<RecipeDto> {
-    const recipeEntity = this.toRecipeEntity(createRecipeDto);
+  async createRecipe(
+    createRecipeDto: CreateRecipeDto,
+    profileId: string,
+  ): Promise<RecipeDto> {
+    // Check if profile exists
+    const profile = await this.profileRepository.findOne({
+      where: { id: profileId },
+    });
+    if (!profile) {
+      throw new NotFoundException(`Profile with id = ${profileId} not found`);
+    }
+
+    const recipeEntity = this.toRecipeEntity(createRecipeDto, profile);
 
     await this.recipeRepository.save(recipeEntity);
 
@@ -56,12 +71,16 @@ export class RecipeService {
     await this.recipeRepository.remove(recipe);
   }
 
-  private toRecipeEntity(createRecipeDto: CreateRecipeDto): Recipe {
+  private toRecipeEntity(
+    createRecipeDto: CreateRecipeDto,
+    profile: Profile,
+  ): Recipe {
     const { name, description, imagePath } = createRecipeDto;
     const recipe = new Recipe();
     recipe.name = name;
     recipe.description = description;
     recipe.imagePath = imagePath;
+    recipe.author = profile;
 
     return recipe;
   }
