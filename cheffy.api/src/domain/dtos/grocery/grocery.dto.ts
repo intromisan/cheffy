@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { Macronutrients } from 'src/infrastructure/entities/macronutrients.entity';
 
 export class GroceryDto {
@@ -8,3 +9,5 @@ export class GroceryDto {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export class GroceryListItem extends PartialType(GroceryDto) {}

@@ -11,7 +11,7 @@ export class RecipeRepository extends Repository<Recipe> {
   async findRecipeById(id: string): Promise<Recipe> {
     const recipeEntity = await this.findOne({
       where: { id },
-      relations: { steps: true },
+      relations: { steps: true, ingredients: true },
     });
 
     if (!recipeEntity) {

@@ -1,5 +1,6 @@
 import { MeasurementUnit } from 'src/infrastructure/types/measurementUnit.enum';
-import { GroceryDto } from '../grocery/grocery.dto';
+import { GroceryDto, GroceryListItem } from '../grocery/grocery.dto';
+import { OmitType, PartialType } from '@nestjs/mapped-types';
 
 export class IngredientDto {
   id: string;
@@ -7,4 +8,10 @@ export class IngredientDto {
   measurementUnit: MeasurementUnit;
   recipeId: string;
   grocery: GroceryDto;
+}
+
+export class IngredientListItem extends PartialType(
+  OmitType(IngredientDto, ['grocery']),
+) {
+  grocery: GroceryListItem;
 }

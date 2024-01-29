@@ -16,4 +16,13 @@ export class IngredientRepository extends Repository<Ingredient> {
 
     return count > 0;
   }
+
+  async getAllIngredientsByRecipeId(recipeId: string): Promise<Ingredient[]> {
+    const ingredients = await this.createQueryBuilder('ingredient')
+      .leftJoinAndSelect('ingredient.grocery', 'grocery')
+      .where('ingredient.recipeId = :recipeId', { recipeId })
+      .getMany();
+
+    return ingredients;
+  }
 }

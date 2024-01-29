@@ -11,7 +11,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { RecipeService } from './recipe.service';
-import { RecipeDto } from 'src/domain/dtos/recipe/recipe.dto';
+import { RecipeDto, RecipeListItem } from 'src/domain/dtos/recipe/recipe.dto';
 import { CreateRecipeDto } from 'src/domain/dtos/recipe/createRecipe.dto';
 import { UpdateRecipeDto } from 'src/domain/dtos/recipe/updateRecipe.dto';
 import { RequestModel } from 'src/infrastructure/auth/middlewares/auth.middleware';
@@ -21,7 +21,7 @@ export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
   @Get('recipes')
-  findAllRecipes(): Promise<RecipeDto[]> {
+  findAllRecipes(): Promise<RecipeListItem[]> {
     return this.recipeService.getAllRecipes();
   }
 

@@ -58,6 +58,8 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: '*/fridges', method: RequestMethod.PUT },
         { path: '*/fridges', method: RequestMethod.POST },
+        { path: '*/recipes', method: RequestMethod.PUT },
+        { path: '*/recipes', method: RequestMethod.POST },
       );
   }
 }
