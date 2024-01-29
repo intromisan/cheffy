@@ -1,5 +1,5 @@
+import 'package:cheffy/common/components/navigation_bar.dart';
 import 'package:cheffy/features/auth/presentation/login_or_register.dart';
-import 'package:cheffy/features/recepies/presentation/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ class AuthPage extends StatelessWidget {
           builder: (context, snapshot) {
             // user authenticated
             if (snapshot.hasData) {
-              return const HomePage();
+              return const NavigationBarView();
             }
 
             // user NOT authenticated
