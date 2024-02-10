@@ -21,10 +21,25 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: "Quicksand",
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+          fontFamily: "Quicksand",
+          colorScheme: ColorScheme.fromSeed(
+              brightness: Brightness.light, seedColor: const Color(0xff85a562)),
+          useMaterial3: true,
+
+          // Text Theme
+          textTheme: const TextTheme(
+              titleLarge: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff222921)),
+              titleMedium: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff222921)),
+              titleSmall: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff222921)))),
       home: const AuthPage(),
     );
   }

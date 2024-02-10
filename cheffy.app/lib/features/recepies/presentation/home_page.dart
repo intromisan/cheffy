@@ -88,17 +88,17 @@ class _HomePageState extends State<HomePage> with FirebaseUserMixin {
         appBar: AppBar(
           toolbarHeight: 80,
           backgroundColor: const Color(0xffd2dbe4),
-          title: const Padding(
+          title: Padding(
             padding: EdgeInsets.only(top: 10),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 "Hello Surya",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               Text(
                 "Shall we cook?",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.titleLarge,
               )
             ]),
           ),

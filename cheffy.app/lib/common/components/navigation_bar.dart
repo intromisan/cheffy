@@ -1,3 +1,4 @@
+import 'package:cheffy/features/profile/presentation/screens/profile_page.dart';
 import 'package:cheffy/features/recepies/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +23,7 @@ class _NavigationBarState extends State<NavigationBarView> {
       'Index 2: My library',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Profile',
-      style: optionStyle,
-    ),
+    ProfilePage()
   ];
 
   void _onItemTapped(int index) {
