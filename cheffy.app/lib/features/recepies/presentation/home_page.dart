@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cheffy/common/mixins/firebase_user.dart';
+import 'package:cheffy/features/recepies/domain/category.dart';
 import 'package:cheffy/features/recepies/domain/recipe_of_week.dart';
 import 'package:cheffy/features/recepies/domain/suggestion.dart';
+import 'package:cheffy/features/recepies/presentation/components/category_tile.dart';
 import 'package:cheffy/features/recepies/presentation/components/subtitle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +69,14 @@ class _HomePageState extends State<HomePage> with FirebaseUserMixin {
     Suggestion("lib/images/tomatoSoup.jpg", "Tomato soup", "Soup")
   ];
 
+  List<RecipeCategory> categoryList = [
+    RecipeCategory("lib/images/breakfast.png", "Brekfast"),
+    RecipeCategory("lib/images/breakfast.png", "Lunch"),
+    RecipeCategory("lib/images/breakfast.png", "Dinner"),
+    RecipeCategory("lib/images/breakfast.png", "Desserts"),
+    RecipeCategory("lib/images/breakfast.png", "Junk"),
+  ];
+
   @override
   void initState() {
     _search = TextEditingController();
@@ -119,37 +129,57 @@ class _HomePageState extends State<HomePage> with FirebaseUserMixin {
             _searchBar(),
             _recipesOfWeek(),
             _suggestions(),
-            Container(
-              child: const Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SubtitleWidget(subtitleText: "Categories"),
-                    Padding(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        "See all",
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            decoration: TextDecoration.underline),
-                      ),
-                    )
-                  ],
-                )
-              ]),
-            )
+            _categories()
           ],
         ));
+  }
+
+  Container _categories() {
+    return Container(
+      height: 140,
+      child: Column(children: [
+        const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SubtitleWidget(subtitleText: "Categories"),
+              Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: Text(
+                  "See all",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+            ]),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 100,
+          // color: Colors.red,
+          child: ListView.separated(
+              itemBuilder: (context, index) =>
+                  CategoryTile(index: index, category: categoryList[index]),
+              separatorBuilder: (context, index) => const SizedBox(
+                    width: 20,
+                  ),
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              itemCount: categoryList.length),
+        )
+      ]),
+    );
   }
 
   Container _suggestions() {
     return Container(
         margin: const EdgeInsets.only(
-          top: 10,
+          top: 5,
         ),
-        child: (Column(children: [
+        child: Column(children: [
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -167,31 +197,27 @@ class _HomePageState extends State<HomePage> with FirebaseUserMixin {
               )
             ],
           ),
-          Container(
-              margin: const EdgeInsets.only(),
-              child: SizedBox(
-                height: 200,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: suggestionsList.length,
-                  separatorBuilder: (context, index) => const SizedBox(
-                    width: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    return _suggestionsCardBuilder(
-                        index, suggestionsList[index]);
-                  },
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                ),
-              ))
-        ])));
+          SizedBox(
+            height: 190,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: suggestionsList.length,
+              separatorBuilder: (context, index) => const SizedBox(
+                width: 20,
+              ),
+              itemBuilder: (context, index) {
+                return _suggestionsCardBuilder(index, suggestionsList[index]);
+              },
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            ),
+          )
+        ]));
   }
 
   Container _suggestionsCardBuilder(int index, Suggestion suggestion) {
     return Container(
       width: 250,
-      height: 200,
+      height: 180,
       padding: const EdgeInsets.only(top: 30, left: 20, right: 30, bottom: 90),
       decoration: BoxDecoration(
         image: DecorationImage(
