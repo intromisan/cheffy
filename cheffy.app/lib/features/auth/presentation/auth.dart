@@ -1,7 +1,10 @@
 import 'package:cheffy/common/components/navigation_bar.dart';
 import 'package:cheffy/features/auth/presentation/login_or_register.dart';
+import 'package:cheffy/features/auth/presentation/onboarding/onboarding_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+bool firstTime = true;
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -15,7 +18,7 @@ class AuthPage extends StatelessWidget {
           builder: (context, snapshot) {
             // user authenticated
             if (snapshot.hasData) {
-              return const NavigationBarView();
+              return firstTime ? OnboardingPage() : NavigationBarView();
             }
 
             // user NOT authenticated
